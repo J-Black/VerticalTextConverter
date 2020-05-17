@@ -22,16 +22,16 @@ string fullWidthCorrrection(string input) {
     correction = "︙"; // U+FE19
   }
   // Quotation Marks
-  if (input == "〝" || input == "「") { // U+301D and U+300C
+  if (input == "〝" || input == "「" || input == "“") { // U+301D and U+300C and U+201C
     correction = "﹁"; // U+FE41
   }
-  if (input == "『") { // U+300E
+  if (input == "『" || input == "‘") { // U+300E and U+2018
     correction = "﹃"; // U+FE43
   }
-  if (input == "〞" || input == "」" || input == "〟") { // U+301E and U+300D and U+301F
+  if (input == "〞" || input == "」" || input == "”" || input == "〟") { // U+301E and U+300D and U+201D and U+301F
     correction = "﹂"; // U+FE42
   }
-  if (input == "』") { // U+300F
+  if (input == "』" || input == "’") { // U+300F and U+2019
     correction = "﹄"; // U+FE44
   }
   // Parenthesis
@@ -133,7 +133,7 @@ int main() {
     // cout << text[i].size() << " < size" <<endl;
   }
   length = large; // for now length == large
-  lengthReal = length / 3;
+  lengthReal = length / 3; // assuem all characters has 3 bytes
   cout << "CJK characters (in unicode) per row: " << lengthReal << endl;
 
 /*
