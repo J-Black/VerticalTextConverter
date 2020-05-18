@@ -4,6 +4,10 @@
 
 #include <iostream>
 #include <cmath>
+#include <string>
+#include <sstream>
+#include <locale>
+#include <codecvt>
 
 using namespace std;
 
@@ -19,6 +23,7 @@ string fullWidthCorrrection(string input) {
   correction = input;
   // Ellipsis
   if (input == "…" || input == "⋯" || input == "⋮" || input == "...") { // U+2026 and U+22EF and U+22EE and triple dot
+    // triple dot not work for now.
     correction = "︙"; // U+FE19
   }
   // Quotation Marks
@@ -108,11 +113,13 @@ int main() {
   cin >> rowNum;
   cout << rowNum << " rows will be convert to vertical text. ";
   string text[rowNum];
+  wstring textWS[rowNum];
   for (int i = 0; i < rowNum; i++) {
     firstRowCheck(firstTime);
     // cout << i << endl;
     getline(cin >> std::ws, text[i]); // I have no idea what does "::ws" do but will get error if without it.
     cout << "You entered " << text[i] << endl;
+    textWS[i] = std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(text[i]);
     firstTime = false;
     if (i+1 >= rowNum) {
       lastRow = true;
@@ -124,17 +131,22 @@ int main() {
  * check length per rows
 */
 
-  int length, lengthReal; // for now only CJK allowed.
+  int length, lengthWS, lengthReal; // for now only CJK allowed.
   int large = 0;
+  int largeWS = 0;
   for (int i = 0; i < rowNum; i++) {
     large = fmax(text[i].length(), large);
+    largeWS = fmax(textWS[i].length(), largeWS);
     // cout << large << endl;
     // cout << text[i].length() << " < length" << endl;
     // cout << text[i].size() << " < size" <<endl;
   }
-  length = large; // for now length == large
-  lengthReal = length / 3; // assuem all characters has 3 bytes
-  cout << "CJK characters (in unicode) per row: " << lengthReal << endl;
+  length = large;
+  lengthWS = largeWS;
+  // lengthReal = length / 3; // assuem all characters has 3 bytes
+  lengthReal = lengthWS;
+  // cout << "CJK characters (in unicode) per row: " << lengthReal << endl;
+  cout << lengthReal << " words in the longest row." << endl;
 
 /*
  * check encoding and others. For now this part not work.
@@ -146,11 +158,13 @@ int main() {
  * add full-width unicode space to make each row same length
 */
   // int tempForLen;
+  string space = " "; // Unicode Character “ ” (U+2003) Name:	Em Space
+  wstring spaceWS = std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(space);
   for (int i = 0; i < rowNum; i++) {
-    while (text[i].length() < large) {
+    while (textWS[i].length() < largeWS) {
       // tempForLen = text[i].length() * 3 - 1;
       // text[i] += "？";
-      text[i] += " "; // Unicode Character “ ” (U+2003) Name:	Em Space
+      textWS[i] += spaceWS;
     }
   }
 
@@ -178,26 +192,33 @@ int main() {
   cout << "converting..." << endl;
   // string rowResult = "";
   string outputText[lengthReal][rowNum];
-  string charResult = "";
+  // string charResult = "";
   // string testResult = "";
-  int leftNum, m, n, o;
+  wstring convertedWS;
+  string convertedBack;
+  int leftNum;
+  // int m, n, o;
   for (int j = 0; j < lengthReal; j++) {
     // rowResult = "";
     for (int i = 0; i < rowNum; i++) {
       leftNum = rowNum - i - 1;
-      m = 3 * j;
-      n = 3 * j + 1;
-      o = 3 * j + 2;
+      // m = 3 * j;
+      // n = 3 * j + 1;
+      // o = 3 * j + 2;
       // rowResult += text[leftNum][m];
       // rowResult += text[leftNum][n];
       // rowResult += text[leftNum][o];
-      charResult += text[leftNum][m];
-      charResult += text[leftNum][n];
-      charResult += text[leftNum][o];
-      charResult = fullWidthCorrrection(charResult);
-      outputText[i][j] = charResult;
+      // charResult += text[leftNum][m];
+      // charResult += text[leftNum][n];
+      // charResult += text[leftNum][o];
+      convertedWS = textWS[leftNum][j];
+      convertedBack = wstring_convert<codecvt_utf8<wchar_t>>().to_bytes(convertedWS);
+      // charResult = fullWidthCorrrection(charResult);
+      convertedBack = fullWidthCorrrection(convertedBack);
+      // outputText[i][j] = charResult;
+      outputText[i][j] = convertedBack;
       cout << outputText[i][j];
-      charResult = "";
+      // charResult = "";
       // testResult += rowResult;
     }
     cout << endl;
