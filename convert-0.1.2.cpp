@@ -1,5 +1,5 @@
 /*
- * WTFPL with no warrenty
+ * WTFPL with no warranty
 */
 
 #include <iostream>
