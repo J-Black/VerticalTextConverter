@@ -1,6 +1,6 @@
 /*
  * WTFPL with no warranty
-*/
+ */
 
 #include <iostream>
 #include <cmath>
@@ -16,7 +16,7 @@ using namespace std;
  * that listed on https://language.moe.gov.tw/001/Upload/files/site_content/M0001/hau/f2.html
  * The website above is provided by Ministry of Education Republic of China (Taiwan)
  * and released with CC BY-NC-ND 2.5 TW
-*/
+ */
 
 string fullWidthCorrrection(string input) {
   string correction;
@@ -47,7 +47,7 @@ string fullWidthCorrrection(string input) {
     correction = "︶"; // U+FE36
   }
   // Dash
-  if (input == "─" || input == "━" || input == "—") { // U+2500 and U+2501 and U+2014
+  if (input == "─" || input == "━" || input == "—" || input == "―") { // U+2500 and U+2501 and U+2014 and U+2015
     correction = "︱"; // U+FE31
   }
   //Angle Brackets
@@ -75,7 +75,7 @@ string fullWidthCorrrection(string input) {
   /* Tilde actually not work since Unicode doesnt have a vertical Tilde
    * or Wave Dash. Therefore, users have to create the symbol by themselves
    * just like the interrobang
-  */
+   */
   if (input == "〜") { // U+301C
     correction = "～"; // U+FF5E
   }
@@ -106,7 +106,7 @@ int main() {
 
 /*
  * check number of rows
-*/
+ */
 
   int rowNum;
   cout << "Plz enter the number of rows: ";
@@ -129,7 +129,7 @@ int main() {
 
 /*
  * check length per rows
-*/
+ */
 
   int length, lengthWS, lengthReal; // for now only CJK allowed.
   int large = 0;
@@ -150,13 +150,13 @@ int main() {
 
 /*
  * check encoding and others. For now this part not work.
-*/
+ */
 
   // Nothing here.
 
 /*
  * add full-width unicode space to make each row same length
-*/
+ */
   // int tempForLen;
   string space = " "; // Unicode Character “ ” (U+2003) Name:	Em Space
   wstring spaceWS = std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(space);
@@ -170,7 +170,7 @@ int main() {
 
 /*
  * Test output 1.
-*/
+ */
 
   // for (int i = 0; i < rowNum; i++) {
   //   cout << text[i] << "測試" << endl;
@@ -179,7 +179,7 @@ int main() {
 
 /*
  * converting process
-*/
+ */
 
   // string textRow[rowNum][lengthReal];
   // for (int i = 0; i < rowNum; i++) {
@@ -229,7 +229,7 @@ int main() {
 
 /*
  * Test output 2.
-*/
+ */
 
   // for (int i = 0; i < rowNum; i++) {
   //   for (int j = 0; j < lengthReal; j++) {
