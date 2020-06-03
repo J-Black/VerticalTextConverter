@@ -72,7 +72,7 @@ string fullWidthCorrrection(string input) {
     correction = "︴"; // U+FE34
   }
   // Tilde
-  /* Tilde actually not work since Unicode doesnt have a vertical Tilde
+  /* Tilde actually not work since Unicode doesnt has a FULLWIDTH vertical Tilde
    * or Wave Dash. Therefore, users have to create the symbol by themselves
    * just like the interrobang
    */
