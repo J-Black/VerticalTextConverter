@@ -1,8 +1,6 @@
 # VerticalTextConverter
 Convert text into vertical.
 
-WTFPL with no warranty
-
 input sample:
 
 颯颯西風…\
@@ -21,3 +19,13 @@ output sample:
 
 using g++ to compile.\
 still under construction.
+
+License:
+
+As long im not in trouble, you can simply consider the license as WTFPL (http://www.wtfpl.net/).\
+
+X11 license\
+
+edited part: \
+You are ALLOW NOT to include "notice" in "all copies or substantial portions"\
+(a.k.a break thgis rule: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.)
