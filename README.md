@@ -20,7 +20,7 @@ output sample:
 using g++ to compile.\
 still under construction.
 
-License:
+#License:
 
 As long im not in trouble, you can simply consider the license as WTFPL (http://www.wtfpl.net/).
 
