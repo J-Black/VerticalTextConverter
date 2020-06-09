@@ -22,9 +22,9 @@ still under construction.
 
 License:
 
-As long im not in trouble, you can simply consider the license as WTFPL (http://www.wtfpl.net/).\
+As long im not in trouble, you can simply consider the license as WTFPL (http://www.wtfpl.net/).
 
-X11 license\
+X11 license (https://spdx.org/licenses/X11.html)
 
 edited part: \
 You are ALLOW NOT to include "notice" in "all copies or substantial portions"\
